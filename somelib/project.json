@@ -1,0 +1,39 @@
+{
+  "name": "somelib",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "somelib/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "somelib/src/index.ts",
+        "outputPath": "dist/somelib",
+        "tsConfig": "somelib/tsconfig.lib.json",
+        "rollupConfig": "somelib/rollup.config.js",
+        "compiler": "swc",
+        "project": "somelib/package.json",
+        "format": ["cjs", "esm"],
+        "assets": [
+          {
+            "glob": "somelib/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../coverage/somelib"
+      }
+    }
+  }
+}
